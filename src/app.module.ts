@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeormConfig } from './configs/typeorm.config';
 import { SigninModule } from './features/auth/signin/signin.module';
+import { SignupModule } from './features/auth/signup/signup.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { SigninModule } from './features/auth/signin/signin.module';
       useFactory: TypeormConfig,
     }),
     SigninModule,
+    SignupModule,
   ],
   controllers: [AppController],
   providers: [AppService],
