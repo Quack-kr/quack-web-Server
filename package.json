@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:create": "npm run typeorm migration:create",
-    "migration:generate": "npm run typeorm -- migration:generate -d src/entities/migrations",
+    "migration:generate": "npm run typeorm -- migration:generate -d src/configs/migrations",
     "migration:run": "npm run typeorm migration:run -- -d src/entities/database.providers.ts",
     "migration:revert": "npm run typeorm migration:revert -- -d src/entities/database.providers.ts"
   },
