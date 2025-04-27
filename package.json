@@ -9,7 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:dev": "NODE_ENV=development nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -20,12 +20,13 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:create": "npm run typeorm migration:create",
-    "migration:generate": "npm run typeorm migration:generate -n",
-    "migration:run": "npm run typeorm migration:run -- -d src/database/database.providers.ts",
-    "migration:revert": "npm run typeorm migration:revert -- -d src/database/database.providers.ts"
+    "migration:generate": "npm run typeorm -- migration:generate -d src/entities/migrations",
+    "migration:run": "npm run typeorm migration:run -- -d src/entities/database.providers.ts",
+    "migration:revert": "npm run typeorm migration:revert -- -d src/entities/database.providers.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/typeorm": "^11.0.0",
