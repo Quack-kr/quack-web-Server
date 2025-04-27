@@ -4,8 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeormConfig } from './configs/typeorm.config';
-import { SigninModule } from './features/auth/signin/signin.module';
-import { SignupModule } from './features/auth/signup/signup.module';
+import { AuthModule } from './features/auth/auth.module';
 
 @Module({
   imports: [
@@ -18,8 +17,7 @@ import { SignupModule } from './features/auth/signup/signup.module';
       inject: [ConfigService],
       useFactory: TypeormConfig,
     }),
-    SigninModule,
-    SignupModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
