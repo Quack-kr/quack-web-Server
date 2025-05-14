@@ -1,0 +1,149 @@
+// 회원 테이블
+Table customer_user {
+  user_id int [pk, increment] // 사용자 고유 ID
+  social_type varchar(20) // 소셜 로그인 타입 (NAVER, KAKAO, APPLE)
+  social_id varchar(255) // 소셜 로그인 ID
+  nickname varchar(50) // 닉네임
+  email varchar(255) // 이메일
+  profile_image_id int [ref: > image.image_id] // 프로필 사진 ID
+  created_at datetime // 가입 일시
+  deleted_at datetime // 탈퇴 일시
+  is_delete boolean // 탈퇴 여부
+  has_agreed_marketing_policy boolean // 마케팅 정보 동의 여부
+  decibel int // 핵공감 데시벨 점수
+}
+
+// 식당 테이블
+Table restaurant {
+  restaurant_id int [pk, increment]
+  restaurant_name varchar(255) // 식당 이름
+  detail_address varchar(255) // 상세 주소
+  area_id int [ref: > area.area_id] // 지역 FK
+  category_id int [ref: > restaurant_category.restaurant_category_id] // 카테고리 FK
+  restaurant_keyword_id int // 키워드 ID
+  latitude decimal(10,7) // 위도
+  longitude decimal(10,7) // 경도
+  simple_description varchar(255) // 한줄 소개
+  detail_description text // 상세 소개
+  effort_message varchar(255) // 사장님 한마디
+  average_price int // 평균 가격
+  parking varchar(50) // 주차 정보 (무료주차, 유료주차, 주차불가)
+  restroom_info varchar(50) // 화장실 정보
+  service varchar(100) // 기타 서비스 (ex: 고기 구워드려요)
+}
+
+// 리뷰 테이블
+Table review {
+  review_id int [pk, increment]
+  customer_user_id int [ref: > customer_user.user_id] // 작성자
+  restaurant_id int [ref: > restaurant.restaurant_id] // 리뷰 대상 식당
+  created_at datetime // 작성일시
+  content text // 리뷰 내용
+}
+
+// 문의 테이블
+Table inquiry {
+  inquiry_id int [pk, increment]
+  customer_user_id int [ref: > customer_user.user_id] // 작성자
+  title varchar(255) // 문의 제목
+  content text // 문의 내용
+  created_at datetime // 작성일시
+  answer text // 답변 내용 (nullable)
+}
+
+// 메뉴 테이블
+Table menu {
+  menu_id int [pk, increment]
+  name varchar(255) // 메뉴 이름
+  restaurant_id int [ref: > restaurant.restaurant_id] // 식당 ID
+  price int // 메뉴 가격
+  image_id int [ref: > image.image_id] // 메뉴 이미지
+  description text // 메뉴 설명
+  menu_category_id int [ref: > menu_category.id] // 메뉴 카테고리
+}
+
+// 리뷰 좋아요/싫어요 테이블
+Table review_like {
+  review_like_id int [pk, increment]
+  review_id int [ref: > review.review_id] // 리뷰 ID
+  user_id int [ref: > customer_user.user_id] // 사용자 ID
+  type varchar(20) // 공감 타입 (핵공감, 비공감)
+}
+
+// 메뉴 평가 테이블
+Table menu_eval {
+  menu_eval_id int [pk, increment]
+  review_id int [ref: > review.review_id] // 리뷰 ID
+  menu_id int [ref: > menu.menu_id] // 메뉴 ID
+  menu_keyword_id int // 평가 키워드 ID
+}
+
+// 가게 평가 키워드 테이블
+Table review_restaurant {
+  review_restaurant_id int [pk, increment]
+  review_id int [ref: > review.review_id]
+  keyword_id int // 키워드 ID
+}
+
+// 저장한 식당 정보 테이블
+Table saved_restaurant_attribute {
+  saved_id int [pk, increment]
+  restaurant_id int [ref: > restaurant.restaurant_id]
+  user_id int [ref: > customer_user.user_id]
+  review_keyword_count int // 키워드 누적 횟수 등
+}
+
+// 식당 운영 정보 테이블
+Table restaurant_operating_info {
+  id int [pk, increment]
+  restaurant_id int [ref: > restaurant.restaurant_id]
+  day_of_week varchar(10) // 요일
+  open_time time // 영업 시작
+  close_time time // 영업 종료
+  is_closed boolean // 정기 휴무 여부
+  break_start_time time // 브레이크 시작
+  break_end_time time // 브레이크 종료
+  last_order_time time // 라스트 오더
+}
+
+// 이미지 테이블
+Table image {
+  image_id int [pk, increment]
+  image_url_path varchar(255) // 이미지 URL
+}
+
+// 지역 정보 테이블
+Table area {
+  area_id int [pk, increment]
+  area_name varchar(100) // 지역 이름
+}
+
+// 식당 카테고리 테이블
+Table restaurant_category {
+  restaurant_category_id int [pk, increment]
+  category_name varchar(100) // 카테고리 이름
+}
+
+// 리뷰/식당 키워드 테이블
+Table keyword {
+  id int [pk, increment]
+  content varchar(255) // 키워드 내용
+  keyword_type varchar(50) // 키워드 타입 (ex: 화장실 불편, 제한시간 있음 등)
+}
+
+// 메뉴 카테고리 테이블
+Table menu_category {
+  id int [pk, increment]
+  restaurant_id int [ref: > restaurant.restaurant_id]
+  category_name varchar(100) // 카테고리명
+}
+
+// 사장님 정보 테이블
+Table owner {
+  owner_id int [pk, increment]
+  restaurant_id int [ref: > restaurant.restaurant_id]
+  business_number varchar(20) // 사업자 등록 번호
+  business_license_image_id int [ref: > image.image_id] // 등록증 이미지
+  representative_name varchar(50) // 대표자명
+  phone_number varchar(20) // 대표자 연락처
+}

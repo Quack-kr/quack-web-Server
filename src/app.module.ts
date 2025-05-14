@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeormConfig } from './configs/typeorm.config';
 import { AuthModule } from './features/auth/auth.module';
+import * as entities from './entities';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AuthModule } from './features/auth/auth.module';
       inject: [ConfigService],
       useFactory: TypeormConfig,
     }),
+    TypeOrmModule.forFeature(Object.values(entities)),
     AuthModule,
   ],
   controllers: [AppController],

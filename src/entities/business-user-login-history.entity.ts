@@ -1,3 +1,6 @@
+/**
+ * 로그성 테이블
+ */
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,8 +8,8 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 
-@Entity('restaurant_owner_login_histories')
-export class RestaurantOwnerLoginHistory {
+@Entity('business_user_login_histories')
+export class BusinessUserLoginHistory {
   @PrimaryGeneratedColumn()
   id: number;
 
