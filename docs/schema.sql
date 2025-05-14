@@ -23,6 +23,7 @@ CREATE TABLE customer_user_metadata (
 
 CREATE TABLE business_user (
     business_user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255),
     provider_name VARCHAR(100),
     provider_id VARCHAR(255),
     create_time DATETIME,

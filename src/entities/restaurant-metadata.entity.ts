@@ -19,7 +19,7 @@ export class RestaurantMetadata {
   @Column({ name: 'average_price', type: 'int' })
   averagePrice: number;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column({ type: 'varchar2', length: 50 })
   parking: string;
 
   @Column({ name: 'is_uni_sex_toilet', type: 'boolean' })

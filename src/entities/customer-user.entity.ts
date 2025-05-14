@@ -11,16 +11,16 @@ export class CustomerUser {
   @PrimaryGeneratedColumn({ name: 'customer_user_id', type: 'bigint' })
   customerUserId: number;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar2', length: 20 })
   provider: string;
 
-  @Column({ name: 'provider_id', type: 'varchar', length: 255 })
+  @Column({ name: 'provider_id', type: 'varchar2', length: 255 })
   providerId: string;
 
-  @Column({ type: 'varchar', length: 255, unique: true })
+  @Column({ type: 'varchar2', length: 255, unique: true })
   email: string;
 
-  @Column({ type: 'varchar', length: 255, unique: true })
+  @Column({ type: 'varchar2', length: 255, unique: true })
   nickname: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'datetime' })

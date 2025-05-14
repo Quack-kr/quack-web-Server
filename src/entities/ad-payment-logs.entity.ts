@@ -27,13 +27,13 @@ export class AdPaymentLogs {
   @Column({ name: 'restaurant_id', type: 'bigint' })
   restaurantId: number;
 
-  @Column({ name: 'pg_provider', type: 'varchar', length: 255 })
+  @Column({ name: 'pg_provider', type: 'varchar2', length: 255 })
   pgProvider: string;
 
   @Column({ name: 'pg_data', type: 'json' })
   pgData: object;
 
-  @Column({ name: 'pg_id', type: 'varchar', length: 255 })
+  @Column({ name: 'pg_id', type: 'varchar2', length: 255 })
   pgId: string;
 
   @Column({ name: 'is_auto', type: 'boolean' })

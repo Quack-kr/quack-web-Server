@@ -11,16 +11,16 @@ export class Photo {
   @PrimaryGeneratedColumn({ name: 'photo_id', type: 'bigint' })
   photoId: number;
 
-  @Column({ name: 'image_url', type: 'varchar', length: 500 })
+  @Column({ name: 'image_url', type: 'varchar2', length: 500 })
   imageUrl: string;
 
-  @Column({ name: 'target_type', type: 'varchar', length: 50 })
+  @Column({ name: 'target_type', type: 'varchar2', length: 50 })
   targetType: string;
 
   @Column({ name: 'target_id', type: 'bigint' })
   targetId: number;
 
-  @Column({ name: 'photo_type', type: 'varchar', length: 50 })
+  @Column({ name: 'photo_type', type: 'varchar2', length: 50 })
   photoType: string;
 
   @Column({ name: 'sort_order', type: 'int' })

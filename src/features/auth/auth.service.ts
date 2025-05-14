@@ -1,6 +1,4 @@
-import * as bcrypt from 'bcryptjs';
-
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
@@ -21,6 +19,8 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
+  /**
+   * @Deprecated 소셜로그인만 허용하므로 password 방식은 지원하지 않음
   parseBasicToken(rawToken: string) {
     const basicTokenSplit: string[] = rawToken.split(' ');
     console.log(' basicTokenSplit ', basicTokenSplit);
@@ -133,4 +133,5 @@ export class AuthService {
       access_token: accessToken,
     };
   }
+  */
 }

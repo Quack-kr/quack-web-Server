@@ -5,10 +5,10 @@ export class Restaurant {
   @PrimaryGeneratedColumn({ name: 'restaurant_id', type: 'bigint' })
   restaurantId: number;
 
-  @Column({ name: 'restaurant_name', type: 'varchar', length: 255 })
+  @Column({ name: 'restaurant_name', type: 'varchar2', length: 255 })
   restaurantName: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar2', length: 255 })
   address: string;
 
   @Column({ type: 'point', spatialFeatureType: 'Point', srid: 4326 })

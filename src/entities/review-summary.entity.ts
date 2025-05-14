@@ -24,6 +24,6 @@ export class ReviewSummary {
   @Column({ name: 'total_count', type: 'int' })
   totalCount: number;
 
-  @Column({ name: 'review_summary_tag', type: 'varchar', length: 255 })
+  @Column({ name: 'review_summary_tag', type: 'varchar2', length: 255 })
   reviewSummaryTag: string;
 }
