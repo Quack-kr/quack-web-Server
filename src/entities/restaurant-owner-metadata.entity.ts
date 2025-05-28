@@ -19,12 +19,12 @@ export class RestaurantOwnerMetadata {
   @JoinColumn({ name: 'restaurant_id' })
   restaurant: Restaurant;
 
-  @Column({ name: 'simple_description', type: 'varchar2', length: 255 })
+  @Column({ name: 'simple_description', type: 'varchar', length: 255 })
   simpleDescription: string;
 
   @Column({ name: 'detail_description', type: 'text' })
   detailDescription: string;
 
-  @Column({ name: 'effort_message', type: 'varchar2', length: 255 })
+  @Column({ name: 'effort_message', type: 'varchar', length: 255 })
   effortMessage: string;
 }

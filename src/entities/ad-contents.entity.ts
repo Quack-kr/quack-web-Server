@@ -23,10 +23,10 @@ export class AdContents {
   @Column({ name: 'restaurant_id', type: 'bigint' })
   restaurantId: number;
 
-  @Column({ name: 'ad_title_1', type: 'varchar2', length: 255 })
+  @Column({ name: 'ad_title_1', type: 'varchar', length: 255 })
   adTitle1: string;
 
-  @Column({ name: 'ad_title_2', type: 'varchar2', length: 255 })
+  @Column({ name: 'ad_title_2', type: 'varchar', length: 255 })
   adTitle2: string;
 
   @Column({ name: 'user_description', type: 'text' })

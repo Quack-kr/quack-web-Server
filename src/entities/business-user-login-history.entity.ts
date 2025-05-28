@@ -16,7 +16,7 @@ export class BusinessUserLoginHistory {
   @Column()
   restaurantOwnerId: number; // 그냥 숫자로만 저장 (외래키 X)
 
-  @Column({ type: 'varchar2', length: 45 })
+  @Column({ type: 'varchar', length: 45 })
   ipAddress: string;
 
   @Column({ type: 'text', nullable: true })

@@ -1,25 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import { Strategy, Profile } from 'passport-kakao';
+import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
+import { Profile as KakaoProfile, Strategy } from 'passport-kakao';
 
 @Injectable()
 export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
-  constructor() {
+  constructor(configService: ConfigService) {
+    const clientID = configService.get<string>('KAKAO_CLIENT_ID');
+    const clientSecret = configService.get<string>('KAKAO_CLIENT_SECRET');
+    const callbackURL = configService.get<string>('KAKAO_CALLBACK_URL');
+
+    if (!clientID || !clientSecret || !callbackURL) {
+      throw new Error(
+        'KAKAO_CLIENT_ID or KAKAO_CLIENT_SECRET or KAKAO_CALLBACK_URL is not defined',
+      );
+    }
+
     super({
-      clientID: 'YOUR_KAKAO_CLIENT_ID',
-      clientSecret: 'YOUR_KAKAO_CLIENT_SECRET',
-      callbackURL: 'YOUR_KAKAO_CALLBACK_URL',
+      clientID,
+      clientSecret,
+      callbackURL,
     });
   }
 
-  async validate(accessToken: string, refreshToken: string, profile: Profile, done: (err: any, user: any) => void): Promise<any> {
-    const user = {
-      id: profile.id,
-      username: profile.username,
-      // other profile information
-      accessToken,
-      refreshToken,
+  validate(accessToken: string, profile: KakaoProfile) {
+    const id = profile.id;
+    const json = profile._json as {
+      kakao_account: {
+        email: string;
+      };
     };
-    done(null, user);
+    console.log('json', json);
+
+    return {
+      provider: 'kakao',
+      provider_id: id,
+      accessToken,
+      email: json.kakao_account?.email,
+    };
   }
 }

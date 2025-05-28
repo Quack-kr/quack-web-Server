@@ -13,7 +13,7 @@ export class RestaurantCategory {
   @PrimaryGeneratedColumn({ name: 'restaurant_category_id', type: 'bigint' })
   restaurantCategoryId: number;
 
-  @Column({ name: 'restaurant_category_code', type: 'varchar2', length: 100 })
+  @Column({ name: 'restaurant_category_code', type: 'varchar', length: 100 })
   restaurantCategoryCode: string;
 
   @ManyToOne(() => Restaurant)

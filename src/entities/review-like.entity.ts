@@ -19,6 +19,6 @@ export class ReviewLike {
   @Column({ name: 'customer_id', type: 'bigint' })
   customerId: number;
 
-  @Column({ name: 'review_like_type', type: 'varchar2', length: 20 })
+  @Column({ name: 'review_like_type', type: 'varchar', length: 20 })
   reviewLikeType: string;
 }

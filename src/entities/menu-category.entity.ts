@@ -20,7 +20,7 @@ export class MenuCategory {
   @Column({ name: 'sort_order', type: 'int' })
   sortOrder: number;
 
-  @Column({ name: 'category_name', type: 'varchar2', length: 100 })
+  @Column({ name: 'category_name', type: 'varchar', length: 100 })
   categoryName: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'datetime' })

@@ -24,7 +24,7 @@ export class Menu {
   @JoinColumn({ name: 'category_id' })
   category: MenuCategory;
 
-  @Column({ name: 'name', type: 'varchar2', length: 100 })
+  @Column({ name: 'name', type: 'varchar', length: 100 })
   name: string;
 
   @Column({ name: 'price', type: 'int' })

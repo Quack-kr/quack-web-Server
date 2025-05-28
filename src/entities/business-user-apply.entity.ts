@@ -18,19 +18,19 @@ export class BusinessUserApply {
   @JoinColumn({ name: 'business_user_id' })
   businessUser: BusinessUser;
 
-  @Column({ name: 'registration_number', type: 'varchar2', length: 50 })
+  @Column({ name: 'registration_number', type: 'varchar', length: 50 })
   registrationNumber: string;
 
-  @Column({ name: 'owner_name', type: 'varchar2', length: 100 })
+  @Column({ name: 'owner_name', type: 'varchar', length: 100 })
   ownerName: string;
 
-  @Column({ name: 'phone_number', type: 'varchar2', length: 50 })
+  @Column({ name: 'phone_number', type: 'varchar', length: 50 })
   phoneNumber: string;
 
-  @Column({ name: 'store_name', type: 'varchar2', length: 100 })
+  @Column({ name: 'store_name', type: 'varchar', length: 100 })
   storeName: string;
 
-  @Column({ name: 'business_license_url', type: 'varchar2', length: 500 })
+  @Column({ name: 'business_license_url', type: 'varchar', length: 500 })
   businessLicenseUrl: string;
 
   @Column({ type: 'enum', enum: ['BEGIN', 'DONE', 'REJECTED'] })

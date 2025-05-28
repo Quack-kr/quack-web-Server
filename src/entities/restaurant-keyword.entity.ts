@@ -7,7 +7,7 @@ export class RestaurantKeyword {
   @PrimaryGeneratedColumn({ name: 'review_keyword_id', type: 'bigint' })
   reviewKeywordId: number;
 
-  @Column({ name: 'review_tag', type: 'varchar2', length: 100 })
+  @Column({ name: 'review_tag', type: 'varchar', length: 100 })
   reviewTag: string;
 
   @Column({

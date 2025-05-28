@@ -16,7 +16,7 @@ export class RestaurantBreaks {
   @JoinColumn({ name: 'restaurant_id' })
   restaurant: Restaurant;
 
-  @Column({ name: 'day_of_week', type: 'varchar2', length: 10 })
+  @Column({ name: 'day_of_week', type: 'varchar', length: 10 })
   dayOfWeek: string;
 
   @Column({ name: 'break_start', type: 'time' })

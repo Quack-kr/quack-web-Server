@@ -1,10 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityNotFoundError, Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { BusinessUser, BusinessUserLoginHistory } from 'src/entities';
+import bcrypt from 'bcryptjs';
 
+// privateId: string, provider: string, email: string
+interface UserIdToken {
+  provider_id: string;
+  provider_name: string;
+  email: string;
+}
 @Injectable()
 export class AuthService {
   constructor(
@@ -18,6 +25,75 @@ export class AuthService {
 
     private readonly jwtService: JwtService,
   ) {}
+
+  public async getJWT(data: UserIdToken) {
+    const user = await this.validateUserByProvider(data); // 카카오 정보 검증 및 회원가입 로직
+    const accessToken = this.generateAccessToken(user); // AccessToken 생성
+    const refreshToken = await this.generateRefreshToken(user); // refreshToken 생성
+    return { accessToken, refreshToken };
+  }
+
+  private async generateRefreshToken(user: BusinessUser): Promise<string> {
+    const payload = {
+      userId: user.businessUserId,
+    };
+
+    const refreshToken = this.jwtService.sign(payload, {
+      secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+      expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
+    });
+
+    const saltOrRounds = 10;
+    const currentRefreshToken = await bcrypt.hash(refreshToken, saltOrRounds);
+    console.log('currentRefreshToken', currentRefreshToken);
+
+    /**
+     * TODO: Redis 에 저장하는 로직 추가
+    await this.redisService.set(
+      `refresh_token:${user.businessUserId}`,
+      currentRefreshToken,
+      'EX',
+      this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
+    );
+    */
+
+    return refreshToken;
+  }
+
+  private generateAccessToken(user: BusinessUser): string {
+    const payload = {
+      userId: user.businessUserId,
+    };
+    return this.jwtService.sign(payload);
+  }
+
+  private async validateUserByProvider(
+    data: UserIdToken,
+  ): Promise<BusinessUser> {
+    try {
+      const user: BusinessUser = await this.businessUser.findOneByOrFail({
+        providerId: data.provider_id,
+        providerName: data.provider_name,
+      });
+
+      return user;
+    } catch (error: unknown) {
+      if (error instanceof EntityNotFoundError) {
+        /**
+         * TODO: 회원가입 비즈니스 로직은 따로 구현해야함
+         * const user = this.businessUser.create({
+         *   providerId: data.provider_id,
+         *   providerName: data.provider_name,
+         *   email: data.email,
+         * });
+         * await this.businessUser.save(user);
+         * return user;
+         */
+      }
+
+      throw new Error('Error occurred while validating user');
+    }
+  }
 
   /**
    * @Deprecated 소셜로그인만 허용하므로 password 방식은 지원하지 않음
